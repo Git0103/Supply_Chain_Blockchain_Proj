@@ -2,7 +2,7 @@
   <br>
   <a><img src="https://www.mdpi.com/logistics/logistics-03-00005/article_deploy/html/images/logistics-03-00005-g001.png" width="200"></a>
   <br>  
-  Supply_Chain_with_Blocjchain_Project
+  Supply_Chain_with_Blockchain_Project
   <br>
 </h1>
 
