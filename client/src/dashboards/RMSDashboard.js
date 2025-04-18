@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Web3 from "web3";
-import SupplyChainABI from "./artifacts/SupplyChain.json";
-import './Supply.css'; // Import custom CSS file
+import SupplyChainABI from "../artifacts/SupplyChain.json";
+import '../Supply.css';
 
-function Supply() {
+function RMSDashboard() {
     const history = useHistory();
     useEffect(() => {
         loadWeb3();
@@ -25,9 +25,7 @@ function Supply() {
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
-            window.alert(
-                "Non-Ethereum browser detected. You should consider trying MetaMask!"
-            );
+            window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
         }
     };
 
@@ -77,54 +75,6 @@ function Supply() {
         }
     };
 
-    const handlerSubmitManufacturing = async (event) => {
-        event.preventDefault();
-        try {
-            const receipt = await SupplyChain.methods.Manufacturing(ID).send({ from: currentaccount });
-            if (receipt) {
-                loadBlockchaindata();
-            }
-        } catch (err) {
-            alert("An error occurred!!!");
-        }
-    };
-
-    const handlerSubmitDistribute = async (event) => {
-        event.preventDefault();
-        try {
-            const receipt = await SupplyChain.methods.Distribute(ID).send({ from: currentaccount });
-            if (receipt) {
-                loadBlockchaindata();
-            }
-        } catch (err) {
-            alert("An error occurred!!!");
-        }
-    };
-
-    const handlerSubmitRetail = async (event) => {
-        event.preventDefault();
-        try {
-            const receipt = await SupplyChain.methods.Retail(ID).send({ from: currentaccount });
-            if (receipt) {
-                loadBlockchaindata();
-            }
-        } catch (err) {
-            alert("An error occurred!!!");
-        }
-    };
-
-    const handlerSubmitSold = async (event) => {
-        event.preventDefault();
-        try {
-            const receipt = await SupplyChain.methods.sold(ID).send({ from: currentaccount });
-            if (receipt) {
-                loadBlockchaindata();
-            }
-        } catch (err) {
-            alert("An error occurred!!!");
-        }
-    };
-
     if (loader) {
         return (
             <div className="loader-container">
@@ -139,8 +89,10 @@ function Supply() {
                 <span><b>Current Account Address:</b> {currentaccount}</span>
                 <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm home-button">HOME</span>
             </div>
+            <h2>Raw Material Supplier Dashboard</h2>
             <h6><b>Supply Chain Flow:</b></h6>
             <p>Product Order -&gt; Raw Material Supplier -&gt; Manufacturer -&gt; Distributor -&gt; Retailer -&gt; Consumer</p>
+            
             <table className="table table-sm table-dark">
                 <thead>
                     <tr>
@@ -163,47 +115,14 @@ function Supply() {
             </table>
 
             <div className="supply-step">
-                <h5><b>Step 1: Supply Raw Materials</b> (Only a registered Raw Material Supplier can perform this step):</h5>
+                <h5><b>Supply Raw Materials</b></h5>
                 <form onSubmit={handlerSubmitRMSsupply}>
                     <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
                     <button className="btn btn-outline-success btn-sm">Supply</button>
                 </form>
             </div>
-            <hr />
-            <div className="supply-step">
-                <h5><b>Step 2: Manufacture</b> (Only a registered Manufacturer can perform this step):</h5>
-                <form onSubmit={handlerSubmitManufacturing}>
-                    <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
-                    <button className="btn btn-outline-success btn-sm">Manufacture</button>
-                </form>
-            </div>
-            <hr />
-            <div className="supply-step">
-                <h5><b>Step 3: Distribute</b> (Only a registered Distributor can perform this step):</h5>
-                <form onSubmit={handlerSubmitDistribute}>
-                    <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
-                    <button className="btn btn-outline-success btn-sm">Distribute</button>
-                </form>
-            </div>
-            <hr />
-            <div className="supply-step">
-                <h5><b>Step 4: Retail</b> (Only a registered Retailer can perform this step):</h5>
-                <form onSubmit={handlerSubmitRetail}>
-                    <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
-                    <button className="btn btn-outline-success btn-sm">Retail</button>
-                </form>
-            </div>
-            <hr />
-            <div className="supply-step">
-                <h5><b>Step 5: Mark as Sold</b> (Only a registered Retailer can perform this step):</h5>
-                <form onSubmit={handlerSubmitSold}>
-                    <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
-                    <button className="btn btn-outline-success btn-sm">Sold</button>
-                </form>
-            </div>
-            <hr />
         </div>
     );
 }
 
-export default Supply;
+export default RMSDashboard; 
