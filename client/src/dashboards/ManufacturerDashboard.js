@@ -46,6 +46,7 @@ function ManufacturerDashboard() {
             for (let i = 0; i < medCtr; i++) {
                 med[i] = await supplychain.methods.MedicineStock(i + 1).call();
                 medStage[i] = await supplychain.methods.showStage(i + 1).call();
+                medStage[i] = medStage[i].replace('Medicine ', '');
             }
             setMED(med);
             setMedStage(medStage);

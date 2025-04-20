@@ -4,6 +4,7 @@ import Web3 from "web3";
 import SupplyChainABI from "./artifacts/SupplyChain.json"
 // import {QRCode} from 'qrcode.react'
 import { QRCodeCanvas } from 'qrcode.react';
+import './Track.css';
 
 function Track() {
     const history = useHistory()
@@ -28,6 +29,7 @@ function Track() {
     const [TrackTillManufacture, showTrackTillManufacture] = useState(false);
     const [TrackTillRMS, showTrackTillRMS] = useState(false);
     const [TrackTillOrdered, showTrackTillOrdered] = useState(false);
+    const [scannedQRCode, setScannedQRCode] = useState("");
 
     const loadWeb3 = async () => {
         if (window.ethereum) {
@@ -59,6 +61,7 @@ function Track() {
             for (i = 0; i < medCtr; i++) {
                 med[i + 1] = await supplychain.methods.MedicineStock(i + 1).call();
                 medStage[i + 1] = await supplychain.methods.showStage(i + 1).call();
+                medStage[i + 1] = medStage[i + 1].replace('Medicine ', '');
             }
             setMED(med);
             setMedStage(medStage);
@@ -100,6 +103,16 @@ function Track() {
         )
     }
     if (TrackTillSold) {
+        const productData = {
+            id: MED[ID]?.id,
+            name: MED[ID]?.name,
+            description: MED[ID]?.description,
+            currentStage: MedStage[ID],
+            status: "Sold"
+        };
+
+        const productDataString = JSON.stringify(productData);
+        
         return (
             <div className="container-xl">
                 <article className="col-4">
@@ -148,6 +161,16 @@ function Track() {
                         <h4><u>Sold</u></h4>
                     </article>
                 </section>
+                <div className="qr-code-container mt-4">
+                    <h4>Product QR Code:</h4>
+                    <QRCodeCanvas 
+                        value={productDataString} 
+                        size={200}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                    <p className="mt-2"><small>Scan this QR code to track this product</small></p>
+                </div>
                 <button onClick={() => {
                     showTrackTillSold(false);
                 }} className="btn btn-outline-success btn-sm">Track Another Item</button>
@@ -158,6 +181,16 @@ function Track() {
         )
     }
     if (TrackTillRetail) {
+        const productData = {
+            id: MED[ID]?.id,
+            name: MED[ID]?.name,
+            description: MED[ID]?.description,
+            currentStage: MedStage[ID],
+            status: "At Retailer"
+        };
+
+        const productDataString = JSON.stringify(productData);
+        
         return (
             <div className="container-xl">
                 <article className="col-4">
@@ -202,6 +235,16 @@ function Track() {
                         <p><b>Place: </b>{RET[MED[ID].RETid].place}</p>
                     </article>
                 </section>
+                <div className="qr-code-container mt-4">
+                    <h4>Product QR Code:</h4>
+                    <QRCodeCanvas 
+                        value={productDataString} 
+                        size={200}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                    <p className="mt-2"><small>Scan this QR code to track this product</small></p>
+                </div>
                 <button onClick={() => {
                     showTrackTillRetail(false);
                 }} className="btn btn-outline-success btn-sm">Track Another Item</button>
@@ -212,6 +255,16 @@ function Track() {
         )
     }
     if (TrackTillDistribution) {
+        const productData = {
+            id: MED[ID]?.id,
+            name: MED[ID]?.name,
+            description: MED[ID]?.description,
+            currentStage: MedStage[ID],
+            status: "At Distributor"
+        };
+
+        const productDataString = JSON.stringify(productData);
+        
         return (
             <div className="container-xl">
                 <article className="col-4">
@@ -249,6 +302,16 @@ function Track() {
                         <p><b>Place: </b>{DIS[MED[ID].DISid].place}</p>
                     </article>
                 </section>
+                <div className="qr-code-container mt-4">
+                    <h4>Product QR Code:</h4>
+                    <QRCodeCanvas 
+                        value={productDataString} 
+                        size={200}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                    <p className="mt-2"><small>Scan this QR code to track this product</small></p>
+                </div>
                 <button onClick={() => {
                     showTrackTillDistribution(false);
                 }} className="btn btn-outline-success btn-sm">Track Another Item</button>
@@ -259,6 +322,16 @@ function Track() {
         )
     }
     if (TrackTillManufacture) {
+        const productData = {
+            id: MED[ID]?.id,
+            name: MED[ID]?.name,
+            description: MED[ID]?.description,
+            currentStage: MedStage[ID],
+            status: "At Manufacturer"
+        };
+
+        const productDataString = JSON.stringify(productData);
+        
         return (
             <div className="container-xl">
                 <article className="col-4">
@@ -289,6 +362,16 @@ function Track() {
                         <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
                     </article>
                 </section>
+                <div className="qr-code-container mt-4">
+                    <h4>Product QR Code:</h4>
+                    <QRCodeCanvas 
+                        value={productDataString} 
+                        size={200}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                    <p className="mt-2"><small>Scan this QR code to track this product</small></p>
+                </div>
                 <button onClick={() => {
                     showTrackTillManufacture(false);
                 }} className="btn btn-outline-success btn-sm">Track Another Item</button>
@@ -299,6 +382,16 @@ function Track() {
         )
     }
     if (TrackTillRMS) {
+        const productData = {
+            id: MED[ID]?.id,
+            name: MED[ID]?.name,
+            description: MED[ID]?.description,
+            currentStage: MedStage[ID],
+            status: "At Raw Material Supplier"
+        };
+
+        const productDataString = JSON.stringify(productData);
+        
         return (
             <div className="container-xl">
                 <article className="col-4">
@@ -322,6 +415,16 @@ function Track() {
                         <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
                     </article>
                 </section>
+                <div className="qr-code-container mt-4">
+                    <h4>Product QR Code:</h4>
+                    <QRCodeCanvas 
+                        value={productDataString} 
+                        size={200}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                    <p className="mt-2"><small>Scan this QR code to track this product</small></p>
+                </div>
                 <button onClick={() => {
                     showTrackTillRMS(false);
                 }} className="btn btn-outline-success btn-sm">Track Another Item</button>
@@ -361,22 +464,17 @@ function Track() {
                         history.push('/')
                     }} className="btn btn-outline-danger btn-sm"> HOME</span>
                 </article>
-                {/* <section className="row">
-                    
-                    <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
-                    </article>
-                </section> */}
                 <div className="qr-code-container">
                     <h4>QR Code:</h4>
-                    <QRCodeCanvas value={batteryDataString} />
+                    <QRCodeCanvas 
+                        value={batteryDataString} 
+                        size={200}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                    <p className="mt-2"><small>Scan this QR code to track this product</small></p>
                 </div>
-            </div >
-
-
+            </div>
         )
     }
     const handlerChangeID = (event) => {
@@ -412,10 +510,59 @@ function Track() {
         }
     }
 
+    const handleQRCodeScan = (data) => {
+        if (data) {
+            try {
+                // Try to parse the scanned data as JSON
+                const productData = JSON.parse(data);
+                
+                // Set the scanned QR code value
+                setScannedQRCode(data);
+                
+                // Set the ID from the product data
+                if (productData.id) {
+                    setID(productData.id);
+                    
+                    // Automatically trigger tracking when QR code is scanned
+                    const event = { preventDefault: () => {} };
+                    handlerSubmit(event);
+                } else {
+                    alert("Invalid QR code: Missing product ID");
+                }
+            } catch (error) {
+                // If parsing fails, try to use the raw data as ID (for backward compatibility)
+                console.error("Error parsing QR code data:", error);
+                setScannedQRCode(data);
+                setID(data);
+                
+                // Automatically trigger tracking when QR code is scanned
+                const event = { preventDefault: () => {} };
+                handlerSubmit(event);
+            }
+        }
+    }
+
+    const handleQRCodeError = (error) => {
+        console.error(error);
+    }
+
     return (
         <div>
             <span><b>Current Account Address:</b> {currentaccount}</span>
             <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm"> HOME</span>
+            
+            <div className="qr-scanner-container mb-4">
+                <h5>Scan QR Code to Track Product</h5>
+                <div className="qr-scanner">
+                    <QRCodeCanvas
+                        value={scannedQRCode}
+                        size={256}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                </div>
+            </div>
+
             <table className="table table-sm table-bordered">
                 <thead>
                     <tr>
@@ -423,19 +570,35 @@ function Track() {
                         <th scope="col">Product Name</th>
                         <th scope="col">Product Description</th>
                         <th scope="col">Current Processing Stage</th>
+                        <th scope="col">QR Code</th>
                     </tr>
                 </thead>
                 <tbody>
                     {Object.keys(MED).map(function (key) {
+                        // Create a JSON object with all relevant product information
+                        const productData = {
+                            id: MED[key].id,
+                            name: MED[key].name,
+                            description: MED[key].description,
+                            stage: MedStage[key]
+                        };
+                        
+                        // Convert to JSON string for QR code
+                        const qrValue = JSON.stringify(productData);
+                        
                         return (
                             <tr key={key}>
                                 <td>{MED[key].id}</td>
                                 <td>{MED[key].name}</td>
                                 <td>{MED[key].description}</td>
+                                <td>{MedStage[key]}</td>
                                 <td>
-                                    {
-                                        MedStage[key]
-                                    }
+                                    <QRCodeCanvas
+                                        value={qrValue}
+                                        size={128}
+                                        level={"H"}
+                                        includeMargin={true}
+                                    />
                                 </td>
                             </tr>
                         )
@@ -445,8 +608,15 @@ function Track() {
             <h5>Enter Order ID to Track it</h5>
 
             <form onSubmit={handlerSubmit}>
-                <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Order ID" required />
-                <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmit}>Track</button>
+                <input 
+                    className="form-control-sm" 
+                    type="text" 
+                    onChange={handlerChangeID} 
+                    placeholder="Enter Order ID" 
+                    value={ID || ''}
+                    required 
+                />
+                <button className="btn btn-outline-success btn-sm" type="submit">Track</button>
             </form>
         </div>
     )

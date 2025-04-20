@@ -1,0 +1,59 @@
+.qr-scanner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.qr-scanner {
+    padding: 15px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table td:last-child {
+    text-align: center;
+}
+
+/* QR code container in tracking results */
+.qr-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.qr-code-container h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Make QR codes responsive */
+@media (max-width: 768px) {
+    .qr-scanner canvas {
+        width: 200px !important;
+        height: 200px !important;
+    }
+    
+    .table td:last-child canvas {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .qr-code-container canvas {
+        width: 180px !important;
+        height: 180px !important;
+    }
+} 

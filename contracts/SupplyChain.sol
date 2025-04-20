@@ -67,7 +67,7 @@ contract SupplyChain {
     {
         require(medicineCtr > 0);
         if (MedicineStock[_medicineID].stage == STAGE.Init)
-            return "Medicine Ordered";
+            return "Ordered";
         else if (MedicineStock[_medicineID].stage == STAGE.RawMaterialSupply)
             return "Raw Material Supply Stage";
         else if (MedicineStock[_medicineID].stage == STAGE.Manufacture)
@@ -77,7 +77,7 @@ contract SupplyChain {
         else if (MedicineStock[_medicineID].stage == STAGE.Retail)
             return "Retail Stage";
         else if (MedicineStock[_medicineID].stage == STAGE.sold)
-            return "Medicine Sold";
+            return "Sold";
     }
 
     //To store information about raw material supplier
